@@ -1,0 +1,6 @@
+.DS_Store
+app/node_modules/
+app/.expo/
+app/dist/
+*.log
+npm-debug.log*
