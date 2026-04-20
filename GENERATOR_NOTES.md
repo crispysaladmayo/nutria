@@ -8,6 +8,8 @@
 
 ## Known limitations
 
+- **Notifications:** Local alerts fire when depletion **escalates** for the active prep run (requires notification permission). Use a **development build** for full behavior; Expo Go shows limitations for `expo-notifications`.
+- **Planner → grocery:** **Shop** on a meal adds one grocery line (title + guessed section); not a full ingredient breakdown.
 - **Grocery pricing:** Each line can store one `price_idr_per_unit` figure; the total is a simple sum of unchecked priced lines (no per-kg math across mixed units).
 - **Pantry:** Display-only in grocery; no automatic deduction when logging consumption.
 - **Meals ↔ prep items:** Meals can be marked “prepped” but do not auto-deduct stock (deduction is explicit via Log).
