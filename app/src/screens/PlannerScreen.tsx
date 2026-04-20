@@ -17,7 +17,8 @@ import { insertMeal, deleteMeal, listMealsForWeek, type MealRow } from '../data/
 import { listPersons, type PersonRow } from '../data/personStore';
 import { sumMacros } from '../domain/nutrition';
 import { MealFormSchema } from '../schemas/meal';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 import { dayLabel, weekStartISO } from '../utils/date';
 import { log } from '../logger';
 
@@ -259,8 +260,13 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.bg },
   scroll: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
-  h1: { fontSize: 22, fontWeight: '700', color: colors.text, marginBottom: spacing.xs },
-  sub: { color: colors.textMuted, marginBottom: spacing.lg, lineHeight: 20 },
+  h1: { fontFamily: font.displayItalic, fontSize: 24, color: colors.text, marginBottom: spacing.xs },
+  sub: {
+    fontFamily: font.body,
+    color: colors.textMuted,
+    marginBottom: spacing.lg,
+    lineHeight: 20,
+  },
   dayCard: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
@@ -268,9 +274,10 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
     borderWidth: 1,
     borderColor: colors.border,
+    ...cardShadow,
   },
   dayHead: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  dayTitle: { fontSize: 18, fontWeight: '700', color: colors.text },
+  dayTitle: { fontFamily: font.display, fontSize: 18, color: colors.text },
   addBtn: {
     backgroundColor: colors.sage1,
     paddingHorizontal: spacing.md,
@@ -303,7 +310,7 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     paddingBottom: spacing.xl,
   },
-  modalTitle: { fontSize: 20, fontWeight: '700', marginBottom: spacing.md, color: colors.text },
+  modalTitle: { fontFamily: font.displayItalic, fontSize: 20, marginBottom: spacing.md, color: colors.text },
   label: { fontSize: 13, color: colors.textMuted, marginBottom: spacing.xs },
   input: {
     borderWidth: 1,

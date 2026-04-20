@@ -1,3 +1,6 @@
+import type { ViewStyle } from 'react-native';
+import { Platform } from 'react-native';
+
 export const colors = {
   bg: '#faf9f5',
   surface: '#fffef9',
@@ -25,4 +28,18 @@ export const radius = {
   sm: 8,
   md: 12,
   lg: 20,
+  /** Logo / hero tiles — matches SVG rx≈32 on 160 box in design HTML */
+  brand: 22,
 };
+
+/** Soft card lift — design HTML uses subtle rgba shadows */
+export const cardShadow: ViewStyle = Platform.select({
+  ios: {
+    shadowColor: '#2b2620',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.07,
+    shadowRadius: 12,
+  },
+  android: { elevation: 3 },
+  default: {},
+});

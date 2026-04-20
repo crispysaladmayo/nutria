@@ -3,7 +3,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import type { CompositeNavigationProp } from '@react-navigation/native';
 import { NButton } from '../../components/NButton';
-import { colors, radius, spacing } from '../../theme/config';
+import { cardShadow, colors, radius, spacing } from '../../theme/config';
+import { font } from '../../theme/fonts';
 import type { PrepItemRow } from '../../data/prepStore';
 import type { MealRow } from '../../data/mealStore';
 import type { Nudge } from '../../domain/nudges';
@@ -32,8 +33,8 @@ function AlertBanner({ tone }: { tone: 'ok' | 'warn' | 'crit' }) {
       ? 'Prepped food is critically low — plan groceries or a new prep run soon.'
       : 'Prepped food is getting low — check the week and grocery list.';
   return (
-    <View style={[styles.banner, { backgroundColor: bg }]}>
-      <Text style={styles.bannerText}>{msg}</Text>
+      <View style={[styles.banner, { backgroundColor: bg }, cardShadow]}>
+        <Text style={styles.bannerText}>{msg}</Text>
     </View>
   );
 }
@@ -65,7 +66,7 @@ export function DepletionLayout(p: Base) {
           {n.text}
         </Text>
       ))}
-      <View style={styles.card}>
+      <View style={[styles.card, cardShadow]}>
         {p.items.length === 0 ? (
           <Text style={styles.muted}>No items in the active prep run.</Text>
         ) : (
@@ -99,7 +100,7 @@ export function PlannerPeekLayout(p: Base) {
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <AlertBanner tone={p.alertTone} />
       <Text style={styles.h1}>This week at a glance</Text>
-      <View style={styles.card}>
+      <View style={[styles.card, cardShadow]}>
         {preview.length === 0 ? (
           <Text style={styles.muted}>No meals planned yet — open the Week tab.</Text>
         ) : (
@@ -128,11 +129,11 @@ export function CompactLayout(p: Base) {
     <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
       <AlertBanner tone={p.alertTone} />
       <View style={styles.compactRow}>
-        <View style={styles.compactStat}>
+        <View style={[styles.compactStat, cardShadow]}>
           <Text style={styles.compactNum}>{Math.round(p.avgRemaining * 100)}%</Text>
           <Text style={styles.compactLbl}>prep left</Text>
         </View>
-        <View style={styles.compactStat}>
+        <View style={[styles.compactStat, cardShadow]}>
           <Text style={styles.compactNum}>{p.items.length}</Text>
           <Text style={styles.compactLbl}>items tracked</Text>
         </View>
@@ -149,23 +150,29 @@ export function CompactLayout(p: Base) {
 }
 
 const styles = StyleSheet.create({
-  scroll: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
+  /** Top padding reduced — HomeHero provides the HTML splash block above */
+  scroll: { paddingHorizontal: spacing.lg, paddingTop: 0, paddingBottom: spacing.xl * 2 },
   h1: {
+    fontFamily: font.displayItalic,
     fontSize: 26,
-    fontWeight: '700',
     color: colors.text,
     marginBottom: spacing.sm,
-    fontStyle: 'italic',
   },
   h2: {
+    fontFamily: font.display,
     fontSize: 18,
-    fontWeight: '600',
     color: colors.text,
     marginTop: spacing.lg,
     marginBottom: spacing.sm,
   },
-  lead: { fontSize: 16, color: colors.textMuted, lineHeight: 22, marginBottom: spacing.md },
-  nudge: { fontSize: 14, color: colors.accent, marginBottom: spacing.sm },
+  lead: {
+    fontFamily: font.body,
+    fontSize: 16,
+    color: colors.textMuted,
+    lineHeight: 22,
+    marginBottom: spacing.md,
+  },
+  nudge: { fontFamily: font.bodyItalic, fontSize: 14, color: colors.accent, marginBottom: spacing.sm },
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.lg,
@@ -175,12 +182,12 @@ const styles = StyleSheet.create({
     marginBottom: spacing.md,
   },
   itemRow: { marginBottom: spacing.sm },
-  itemName: { fontSize: 16, fontWeight: '600', color: colors.text },
-  itemMeta: { fontSize: 14, color: colors.textMuted },
+  itemName: { fontFamily: font.display, fontSize: 16, color: colors.text },
+  itemMeta: { fontFamily: font.body, fontSize: 14, color: colors.textMuted },
   muted: { color: colors.textMuted },
-  mealLine: { fontSize: 15, color: colors.text, marginBottom: 6 },
+  mealLine: { fontFamily: font.body, fontSize: 15, color: colors.text, marginBottom: 6 },
   banner: { borderRadius: radius.md, padding: spacing.md, marginBottom: spacing.lg },
-  bannerText: { color: colors.surface, fontWeight: '600', fontSize: 15 },
+  bannerText: { fontFamily: font.display, color: colors.surface, fontSize: 15 },
   compactRow: { flexDirection: 'row', gap: spacing.md, marginBottom: spacing.lg },
   compactStat: {
     flex: 1,
@@ -191,6 +198,6 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
     alignItems: 'center',
   },
-  compactNum: { fontSize: 32, fontWeight: '700', color: colors.accent },
-  compactLbl: { fontSize: 13, color: colors.textMuted },
+  compactNum: { fontFamily: font.displayItalic, fontSize: 32, color: colors.accent },
+  compactLbl: { fontFamily: font.body, fontSize: 13, color: colors.textMuted },
 });

@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, ViewStyle } from 'react-native';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 
 type Props = {
   title: string;
@@ -23,6 +24,7 @@ export function NButton({ title, onPress, variant = 'primary', style }: Props) {
       style={({ pressed }) => [
         styles.base,
         { backgroundColor: bg, opacity: pressed ? 0.88 : 1 },
+        variant === 'primary' && cardShadow,
         variant === 'ghost' && styles.ghostBorder,
         style,
       ]}
@@ -40,5 +42,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   ghostBorder: { borderWidth: 1, borderColor: colors.accent },
-  label: { fontSize: 16, fontWeight: '600' },
+  label: { fontFamily: font.display, fontSize: 16 },
 });

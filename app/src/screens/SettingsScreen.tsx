@@ -18,7 +18,8 @@ import { listGrocery } from '../data/groceryStore';
 import { shareWeekPlan } from '../export/shareWeek';
 import { rawNeededForCooked } from '../domain/yield';
 import { HomeLayoutSchema, type SettingsPayload } from '../schemas/settings';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 import { weekStartISO } from '../utils/date';
 import { log } from '../logger';
 
@@ -217,9 +218,15 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.bg },
   scroll: { padding: spacing.lg, paddingBottom: spacing.xl * 2 },
-  h1: { fontSize: 22, fontWeight: '700', color: colors.text, marginBottom: spacing.md },
-  h2: { fontSize: 17, fontWeight: '600', color: colors.text, marginTop: spacing.lg, marginBottom: spacing.sm },
-  sub: { color: colors.textMuted, marginBottom: spacing.sm, lineHeight: 20 },
+  h1: { fontFamily: font.displayItalic, fontSize: 24, color: colors.text, marginBottom: spacing.md },
+  h2: {
+    fontFamily: font.display,
+    fontSize: 17,
+    color: colors.text,
+    marginTop: spacing.lg,
+    marginBottom: spacing.sm,
+  },
+  sub: { fontFamily: font.body, color: colors.textMuted, marginBottom: spacing.sm, lineHeight: 20 },
   label: { fontSize: 13, color: colors.textMuted, marginBottom: spacing.xs },
   input: {
     borderWidth: 1,
@@ -249,8 +256,9 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     alignItems: 'center',
     marginTop: spacing.sm,
+    ...cardShadow,
   },
-  saveTxt: { color: colors.surface, fontWeight: '700', fontSize: 16 },
+  saveTxt: { fontFamily: font.display, color: colors.surface, fontSize: 16 },
   secondary: {
     borderWidth: 1,
     borderColor: colors.accent,
@@ -259,6 +267,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: spacing.md,
   },
-  secondaryTxt: { color: colors.accent, fontWeight: '600' },
+  secondaryTxt: { fontFamily: font.display, color: colors.accent },
   hint: { color: colors.success, marginBottom: spacing.md, fontWeight: '600' },
 });

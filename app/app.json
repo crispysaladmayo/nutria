@@ -21,10 +21,14 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.nutria"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "experiments": {
+      "baseUrl": "/nutria"
     },
     "plugins": [
       "expo-sqlite",
@@ -34,7 +38,13 @@
           "sounds": [],
           "enableBackgroundRemoteNotifications": false
         }
-      ]
-    ]
+      ],
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "194eb600-6632-4f96-973d-6e5962f63786"
+      }
+    }
   }
 }

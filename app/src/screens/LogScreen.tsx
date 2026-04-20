@@ -14,7 +14,8 @@ import { useFocusEffect } from '@react-navigation/native';
 import { addConsumption, getActivePrepRun, getPrepItems, type PrepItemRow } from '../data/prepStore';
 import { listPersons, type PersonRow } from '../data/personStore';
 import { ConsumptionFormSchema } from '../schemas/consumption';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 import { log } from '../logger';
 
 export function LogScreen() {
@@ -126,8 +127,8 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.bg },
   scroll: { padding: spacing.lg },
-  h1: { fontSize: 22, fontWeight: '700', color: colors.text, marginBottom: spacing.xs },
-  sub: { color: colors.textMuted, marginBottom: spacing.lg, lineHeight: 20 },
+  h1: { fontFamily: font.displayItalic, fontSize: 24, color: colors.text, marginBottom: spacing.xs },
+  sub: { fontFamily: font.body, color: colors.textMuted, marginBottom: spacing.lg, lineHeight: 20 },
   warn: { color: colors.danger, marginBottom: spacing.md },
   label: { fontSize: 13, color: colors.textMuted, marginBottom: spacing.xs },
   input: {
@@ -158,7 +159,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     borderRadius: radius.md,
     alignItems: 'center',
+    ...cardShadow,
   },
-  saveTxt: { color: colors.surface, fontWeight: '700', fontSize: 16 },
+  saveTxt: { fontFamily: font.display, color: colors.surface, fontSize: 16 },
   msg: { marginTop: spacing.md, color: colors.success, fontWeight: '600' },
 });

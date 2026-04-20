@@ -22,7 +22,8 @@ import {
 } from '../data/groceryStore';
 import { listPantry, type PantryRow } from '../data/pantryStore';
 import { GroceryFormSchema } from '../schemas/grocery';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 import { weekStartISO } from '../utils/date';
 import { formatIDR } from '../utils/money';
 import { log } from '../logger';
@@ -199,9 +200,15 @@ const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.bg },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.bg },
   scroll: { padding: spacing.lg, paddingBottom: 120 },
-  h1: { fontSize: 22, fontWeight: '700', color: colors.text },
-  h2: { fontSize: 16, fontWeight: '600', color: colors.text, marginTop: spacing.md, marginBottom: spacing.sm },
-  total: { fontSize: 16, color: colors.accent, fontWeight: '600', marginVertical: spacing.sm },
+  h1: { fontFamily: font.displayItalic, fontSize: 24, color: colors.text },
+  h2: {
+    fontFamily: font.display,
+    fontSize: 16,
+    color: colors.text,
+    marginTop: spacing.md,
+    marginBottom: spacing.sm,
+  },
+  total: { fontFamily: font.display, fontSize: 16, color: colors.accent, marginVertical: spacing.sm },
   card: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
@@ -209,6 +216,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     marginBottom: spacing.lg,
+    ...cardShadow,
   },
   pantryLine: { fontSize: 14, color: colors.text, marginBottom: 6 },
   muted: { color: colors.textMuted },
@@ -244,7 +252,7 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     paddingBottom: spacing.xl,
   },
-  modalTitle: { fontSize: 20, fontWeight: '700', marginBottom: spacing.md, color: colors.text },
+  modalTitle: { fontFamily: font.displayItalic, fontSize: 20, marginBottom: spacing.md, color: colors.text },
   label: { fontSize: 13, color: colors.textMuted, marginBottom: spacing.xs },
   input: {
     borderWidth: 1,

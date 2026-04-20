@@ -8,6 +8,7 @@ import { useHomeData } from '../hooks/useHomeData';
 import { colors } from '../theme/config';
 import type { HomeNav } from './home/HomeLayouts';
 import { CompactLayout, DepletionLayout, PlannerPeekLayout } from './home/HomeLayouts';
+import { HomeHero } from './home/HomeHero';
 
 function alertTone(
   avgRemaining: number,
@@ -65,7 +66,12 @@ export function HomeScreen() {
       break;
   }
 
-  return <SafeAreaView style={styles.safe}>{body}</SafeAreaView>;
+  return (
+    <SafeAreaView style={styles.safe} edges={['top', 'left', 'right']}>
+      <HomeHero />
+      {body}
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({

@@ -2,7 +2,8 @@ import { useNavigation } from '@react-navigation/native';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NButton } from '../components/NButton';
-import { colors, radius, spacing } from '../theme/config';
+import { cardShadow, colors, radius, spacing } from '../theme/config';
+import { font } from '../theme/fonts';
 
 const STEPS = [
   'Clear counters · set out containers and labels.',
@@ -60,5 +61,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   stepNumTxt: { fontWeight: '700', color: colors.text, fontSize: 14 },
-  stepTxt: { flex: 1, fontSize: 16, color: colors.text, lineHeight: 22 },
+  stepTxt: { flex: 1, fontFamily: font.body, fontSize: 16, color: colors.text, lineHeight: 22 },
 });
