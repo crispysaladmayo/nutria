@@ -10,6 +10,11 @@ After enabling Pages (**Settings → Pages → Build and deployment → Source: 
 
 The [`docs/.nojekyll`](./docs/.nojekyll) file ensures GitHub Pages does not strip the `_expo` asset folder.
 
+### Troubleshooting
+
+- **You only see this README as a webpage (no app UI):** Pages is almost certainly set to **`/(root)`** instead of **`/docs`**. Jekyll then turns `README.md` into the homepage. Fix the folder to **`/docs`**, wait a minute, and hard-refresh. A root [`index.html`](./index.html) also redirects to `docs/` if you must publish from the repo root (cleaner URL: use `/docs` as the source).
+- **Blank page:** Ensure JavaScript is allowed for `github.io`, then check the browser console for blocked script errors.
+
 ## Develop (native or web dev server)
 
 ```bash
