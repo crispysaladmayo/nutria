@@ -1,0 +1,17 @@
+{
+  "name": "nutria-web-platform",
+  "private": true,
+  "workspaces": ["app/server", "app/web"],
+  "scripts": {
+    "export:gh-pages": "npm run build -w @nutria/web && rm -rf ../docs && cp -R app/web/dist ../docs && touch ../docs/.nojekyll",
+    "dev": "concurrently -n server,web -c blue,green \"npm run dev -w app/server\" \"npm run dev -w app/web\"",
+    "db:generate": "npm run db:generate -w app/server",
+    "db:migrate": "npm run db:migrate -w app/server",
+    "db:seed": "npm run db:seed -w app/server",
+    "test": "npm run test -w app/server && npm run test -w app/web",
+    "nutrition:seed": "node scripts/seed-id-nutrition.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

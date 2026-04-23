@@ -32,22 +32,30 @@ npm start
 # Web: press w, or: npm run web
 ```
 
-## Rebuild the published web bundle
+## Rebuild the published site (hi-fi web app for GitHub Pages)
 
-From `app/`:
+The live UI matches **`nutria-web-platform/app/web`** (Indonesian 4-tab hi-fi), not the legacy Expo `app/`.
+
+From `nutria-web-platform/`:
 
 ```bash
-npm run export:web
+npm install
+npm run export:gh-pages
 ```
 
-This runs `expo export --platform web`, copies output into `docs/`, and refreshes `.nojekyll`.
+This runs `npm run build -w @nutria/web` (Vite, `base: /nutria/`), copies `app/web/dist` into `../docs/`, and refreshes `docs/.nojekyll`. Push `main` with an updated `docs/` folder to publish.
+
+**API on `github.io`:** the static app calls `/api/…` on the same host unless you set `VITE_API_BASE` (see `app/web/src/api/client.ts`). For a working login and data, host the Hono server somewhere and rebuild with e.g. `VITE_API_BASE=https://your-api.example.com` in a `.env.production` file before `export:gh-pages`, or use `npm run dev` locally with server + web.
+
+**Legacy only:** Expo web export is still `cd app && npm run export:web` if you need the old 5-tab English bundle; do not use that for the product design.
 
 ## Repository layout
 
 | Path | Purpose |
 |------|---------|
-| `app/` | Expo app source |
-| `docs/` | Static web export served by GitHub Pages |
-| `product/` | **Canonical product IA** — `SOURCE_OF_TRUTH.md` and `design-preview.html` (Hari ini · Rencana · Belanja · Prep). Prefer this over the legacy five-tab layout in `app/` when designing or implementing UI. |
+| `app/` | Expo / React Native (legacy until migrated) |
+| `nutria-web-platform/app/web` | **Hi-fi web** (Vite) — 4 tabs, Bahasa Indonesia; this is what `export:gh-pages` publishes to `docs/`. |
+| `docs/` | Static build of the Vite app for GitHub Pages |
+| `product/` | **Canonical product IA** — `SOURCE_OF_TRUTH.md` and `design-preview.html` (Hari ini · Rencana · Belanja · Prep). |
 
 Open `product/design-preview.html` locally before UI work. Cursor loads `.cursor/rules/nutria-hifi-design.mdc` for `Nutria/**`.
