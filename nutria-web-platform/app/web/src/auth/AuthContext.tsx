@@ -30,7 +30,7 @@ type AuthCtx = {
 const Ctx = createContext<AuthCtx | null>(null);
 
 function looksLikeApiDown(msg: string): boolean {
-  return /non-JSON|3001|ECONNREFUSED|Failed to fetch|NetworkError|fetch failed|Load failed|502|503|504/i.test(
+  return /non-JSON|3001|ECONNREFUSED|Failed to fetch|NetworkError|fetch failed|Load failed|502|503|504|AbortError|aborted|timed out|404/i.test(
     msg,
   );
 }
@@ -57,6 +57,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    if (import.meta.env.VITE_GITHUB_PAGES === '1') {
+      setUser(null);
+      setApiReachable('unreachable');
+      setBusy(false);
+      return;
+    }
     void refresh();
   }, [refresh]);
 

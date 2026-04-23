@@ -49,7 +49,7 @@ npm install
 npm run export:gh-pages
 ```
 
-This runs `npm run build -w @nutria/web` (Vite, `base: /nutria/`), copies `app/web/dist` into `../docs/`, and refreshes `docs/.nojekyll`. Push `main` with an updated `docs/` folder to publish.
+This runs `VITE_GITHUB_PAGES=1 npm run build -w @nutria/web` so the app **skips the `/api` session call** and shows the login page immediately (no stuck “Bentar ya…”). Vite’s `base` is `/nutria/`; output is copied to `../docs/` and `docs/.nojekyll` is touched. Push `main` to publish.
 
 **API on `github.io`:** the static app calls `/api/…` on the same host unless you set `VITE_API_BASE` (see `app/web/src/api/client.ts`). For a working login and data, host the Hono server somewhere and rebuild with e.g. `VITE_API_BASE=https://your-api.example.com` in a `.env.production` file before `export:gh-pages`, or use `npm run dev` locally with server + web.
 

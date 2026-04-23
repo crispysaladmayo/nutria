@@ -45,20 +45,30 @@ async function parseJson(res: Response): Promise<unknown> {
   }
 }
 
+const REQUEST_TIMEOUT_MS = 12_000;
+
 async function request<T>(
   path: string,
   schema: z.ZodType<T>,
   init?: RequestInit,
 ): Promise<T> {
   const hasBody = init?.body !== undefined && init?.body !== null;
-  const res = await fetch(withApiOrigin(path), {
-    ...init,
-    credentials: 'include',
-    headers: {
-      ...(hasBody ? { 'content-type': 'application/json' } : {}),
-      ...(init?.headers ?? {}),
-    },
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  let res: Response;
+  try {
+    res = await fetch(withApiOrigin(path), {
+      ...init,
+      signal: controller.signal,
+      credentials: 'include',
+      headers: {
+        ...(hasBody ? { 'content-type': 'application/json' } : {}),
+        ...(init?.headers ?? {}),
+      },
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
   const raw = await parseJson(res);
   if (!res.ok) {
     const err = ErrorResponse.safeParse(raw);
