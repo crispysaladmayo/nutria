@@ -1,5 +1,9 @@
 # Nutria
 
+**You want the website to “just work” on the internet (spouse / family)?** Do this first: **[START_HERE.md](./START_HERE.md)** (Render + one GitHub Action — no jargon wall).
+
+---
+
 Meal prep, planner, grocery, and consumption tracking (Expo / React Native). This repository includes a **static web build** under [`docs/`](./docs/) for GitHub Pages.
 
 ### Git: which branch for the web app?
