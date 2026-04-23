@@ -57,7 +57,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    if (import.meta.env.VITE_GITHUB_PAGES === '1') {
+    const staticPagesNoApi =
+      import.meta.env.VITE_GITHUB_PAGES === '1' && !import.meta.env.VITE_API_BASE?.trim();
+    if (staticPagesNoApi) {
       setUser(null);
       setApiReachable('unreachable');
       setBusy(false);

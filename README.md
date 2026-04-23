@@ -51,7 +51,16 @@ npm run export:gh-pages
 
 This runs `VITE_GITHUB_PAGES=1 npm run build -w @nutria/web` so the app **skips the `/api` session call** and shows the login page immediately (no stuck “Bentar ya…”). Vite’s `base` is `/nutria/`; output is copied to `../docs/` and `docs/.nojekyll` is touched. Push `main` to publish.
 
-**API on `github.io`:** the static app calls `/api/…` on the same host unless you set `VITE_API_BASE` (see `app/web/src/api/client.ts`). For a working login and data, host the Hono server somewhere and rebuild with e.g. `VITE_API_BASE=https://your-api.example.com` in a `.env.production` file before `export:gh-pages`, or use `npm run dev` locally with server + web.
+**API on the public internet (for family / anyone):** deploy the Hono server + Postgres (Dockerfile in `nutria-web-platform/`) and point the static build at it:
+
+```bash
+export VITE_API_BASE="https://YOUR-API.up.railway.app"   # no trailing slash
+npm run export:gh-pages   # still sets VITE_GITHUB_PAGES=1; with VITE_API_BASE, login/session work
+```
+
+Full checklist: [`nutria-web-platform/DEPLOY.md`](./nutria-web-platform/DEPLOY.md). You can also run **Actions** → *Nutria — build GitHub Pages* and paste the API URL.
+
+**Local dev** keeps using `npm run dev` in `nutria-web-platform` (Vite + API together).
 
 **Legacy only:** Expo web export is still `cd app && npm run export:web` if you need the old 5-tab English bundle; do not use that for the product design.
 
