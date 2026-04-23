@@ -1233,6 +1233,18 @@ details.hifi-details summary::-webkit-details-marker {
   border: 1px solid rgba(139, 58, 47, 0.25);
 }
 
+/* Production static host (e.g. GitHub Pages): info, not “server crash” */
+.api-offline-banner--prod {
+  background: rgba(46, 40, 36, 0.06);
+  color: var(--text-muted);
+  border-color: var(--border-soft);
+}
+
+.api-offline-banner--prod .api-offline-banner__title {
+  color: var(--text);
+  font-weight: 700;
+}
+
 .api-offline-banner__title {
   margin: 0 0 8px;
   font-weight: 800;
