@@ -1,5 +1,6 @@
-# Render Blueprint: Postgres + Nutria API (Dockerfile in nutria-web-platform/)
-# https://dashboard.render.com → New → Blueprint → connect this repo.
+# Render Blueprint: free-tier Postgres + Nutria API (Dockerfile in nutria-web-platform/)
+# New → Blueprint → connect this repo. See START_HERE.md for $0 limits & Neon option.
+# https://dashboard.render.com
 
 databases:
   - name: nutria-pg

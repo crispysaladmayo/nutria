@@ -1,6 +1,17 @@
 # Make Nutria work on the internet (for your wife — not your laptop)
 
-You only do **two** things: (1) start the API, (2) connect the website to it.
+## Free ($0) — this path is the “no subscription” one
+
+| Piece | Cost |
+|-------|------|
+| **GitHub Pages** (the website) | **Free** (public repo). No card. |
+| **The API in `render.yaml`** | **Free** *instance types* on [Render](https://render.com): free **web** + free **Postgres** in this repo’s blueprint. |
+
+**Caveats (read once):** Render may still ask for a **credit card to verify the account**—you are **not** billed for usage that stays on free tiers, but their policy can change, so check [Render pricing / free](https://render.com/docs/free) for the current rules. **Free Render Postgres** is meant for try-outs: it can **expire after a limited time** (Render emails you); if that happens, either upgrade the DB to a paid plan or switch the **database** to a long‑lived free Postgres elsewhere (e.g. **[Neon](https://neon.tech)** free tier) and set **`DATABASE_URL`** on the `nutria-api` service to your Neon connection string (keep everything else the same).
+
+**100% $0, no company policy hassles, self‑hosted:** only realistic option is your own or a friend’s always‑on server (Raspberry Pi, VPS, etc.) using the same Docker image—see `nutria-web-platform/DEPLOY.md`. That’s not “managed free cloud”; it’s free hardware + electricity on your side.
+
+You only do **two** things in the cloud path: (1) start the API, (2) connect the website to it.
 
 ---
 
@@ -26,7 +37,7 @@ Click: **[Deploy to Render](https://render.com/deploy?repo=https://github.com/cr
 
 Keep that API URL for step 2.
 
-> Render may ask for a payment method even on small/free tiers. That is normal. If you do not want Render, you must use another host; see `nutria-web-platform/DEPLOY.md` (same app, more manual).
+> Render may ask for a **card** even when you only use **free** resources—that’s a common “verify human” step, not an automatic charge. If you **refuse all paid hosts** and can’t use Render, the remaining free options are self‑hosting (see `nutria-web-platform/DEPLOY.md`) or a free Postgres (e.g. Neon) + any host that will run the Docker image for $0.
 
 ---
 
