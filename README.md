@@ -18,9 +18,15 @@ After enabling Pages (**Settings → Pages → Build and deployment → Source: 
 
 The [`docs/.nojekyll`](./docs/.nojekyll) file ensures GitHub Pages does not strip the `_expo` asset folder.
 
+### URL (important)
+
+- **Correct live URL:** `https://crispysaladmayo.github.io/nutria/` (ends after `nutria/`, **not** `…/nutria/docs/`).
+- In **Settings → Pages**, the source **folder** named `/docs` is the *directory in the repository* that becomes the **site root**. It is **not** a `/docs` segment in the public URL. (A redirect from `…/nutria/docs/` to the app root is included in the static build so old links do not 404.)
+
 ### Troubleshooting
 
-- **You only see this README as a webpage (no app UI):** Pages is almost certainly set to **`/(root)`** instead of **`/docs`**. Jekyll then turns `README.md` into the homepage. Fix the folder to **`/docs`**, wait a minute, and hard-refresh. A root [`index.html`](./index.html) also redirects to `docs/` if you must publish from the repo root (cleaner URL: use `/docs` as the source).
+- **404 at `…/nutria/docs/`:** Use **`…/nutria/`** as the homepage. If you need the long URL to work, pull the latest `main` and redeploy; the build includes a redirect from `…/nutria/docs/` → `…/nutria/`.
+- **You only see the README as a webpage (no app UI):** Pages is set to **`/(root)`** in the repo instead of **`/docs`**. Set the source folder to **`/docs`**, wait a minute, and hard-refresh.
 - **Blank page:** Ensure JavaScript is allowed for `github.io`, then check the browser console for blocked script errors.
 
 ## Develop (native or web dev server)
