@@ -30,25 +30,31 @@ Keep that API URL for step 2.
 
 ---
 
-## 2) Connect **GitHub Pages** to the API (one paste)
+## 2) Connect **GitHub Pages** to the API (one file — no new JavaScript build)
 
-1. On GitHub open: `https://github.com/crispysaladmayo/nutria`  
-2. **Actions**  
-3. Click **“Nutria — build GitHub Pages”** (left list)  
-4. **Run workflow** → in the box, paste the **API URL** from step 1 → **Run workflow**  
-5. Wait for the green checkmark.  
-6. After ~1 minute, open: **https://crispysaladmayo.github.io/nutria/**
+1. In GitHub open: **`crispysaladmayo/nutria`** → file **`docs/api-config.json`**.  
+2. Click **Edit** (pencil) and set **exactly** (paste your API URL, **no** trailing slash):
 
-You should get **Login / Register**, not an endless “wait” screen. Create an account for your wife and use the app.
+```json
+{ "apiBase": "https://nutria-api-xxxxx.onrender.com" }
+```
 
-**No GitHub Actions?** In `nutria-web-platform` on your computer: `chmod +x scripts/ship-github-pages.sh` once, then `./scripts/ship-github-pages.sh https://YOUR-API-URL` → at repo root `git add docs && git commit -m "pages: API" && git push`.
+3. **Commit to `main`**. Wait ~1 minute, then open: **https://crispysaladmayo.github.io/nutria/**
+
+You should get **Login / Register** with a real backend. **Daftar** to create an account (e.g. for your wife).
+
+**From your laptop (optional):** at repo root, `chmod +x scripts/set-pages-api.sh` then  
+`./scripts/set-pages-api.sh 'https://YOUR-API.onrender.com'`  
+→ commit and push the updated `docs/api-config.json` as the script suggests.
+
+**Alternative (rebuilds the whole JS):** **Actions** → *Nutria — build GitHub Pages* → *Run workflow* and paste the API URL — use only if you need that flow.
 
 ---
 
 ## If something breaks
 
 - **CORS / login** — `render.yaml` already sets CORS to `https://crispysaladmayo.github.io` and `SESSION_SAMESITE=None` for you. If you use a **fork** with a different GitHub Pages URL, you must add that exact `https://…` origin in the **nutria-api** service on Render (Environment) as `CORS_ORIGIN` (comma-separated list).  
-- **Stuck on “Bentar ya…”** — you did not run the Action with `VITE_API_BASE` (step 2), or the API URL is wrong.  
+- **Stuck on “Bentar ya…”** — **`docs/api-config.json`** is missing `apiBase` or has the wrong URL, or the API is not Live on Render.  
 - **Build failed on GitHub** — make sure the workflow ran on the repo that has the latest `main` and that you typed the API URL with **https** and **no** trailing `/`.
 
 For deeper detail: `nutria-web-platform/DEPLOY.md` and `README.md`.

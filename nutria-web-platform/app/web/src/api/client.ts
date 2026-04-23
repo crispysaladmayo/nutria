@@ -1,13 +1,12 @@
 import { z } from 'zod';
+import { getApiOrigin } from './apiBase.js';
 import { createApiError } from './ApiError.js';
 import { log } from '../logger.js';
 
-/** Optional absolute origin for the API (e.g. `https://api.example.com`). Empty = same-origin (dev + proxy). */
-const API_ORIGIN = (import.meta.env.VITE_API_BASE as string | undefined)?.replace(/\/$/, '') ?? '';
-
 function withApiOrigin(path: string): string {
   if (!path.startsWith('/')) return path;
-  return API_ORIGIN ? `${API_ORIGIN}${path}` : path;
+  const origin = getApiOrigin();
+  return origin ? `${origin}${path}` : path;
 }
 import {
   ConsumptionLogsResponse,

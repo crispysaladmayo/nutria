@@ -7,7 +7,9 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { getApiOrigin } from '../api/apiBase.js';
 import { api } from '../api/client.js';
+import { loadApiConfigForApp } from '../config/publicConfig.js';
 import type { z } from 'zod';
 import { UserSchema } from '../api/schemas.js';
 import { log } from '../logger.js';
@@ -57,15 +59,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
-    const staticPagesNoApi =
-      import.meta.env.VITE_GITHUB_PAGES === '1' && !import.meta.env.VITE_API_BASE?.trim();
-    if (staticPagesNoApi) {
-      setUser(null);
-      setApiReachable('unreachable');
-      setBusy(false);
-      return;
-    }
-    void refresh();
+    let cancel = false;
+    void (async () => {
+      await loadApiConfigForApp();
+      if (cancel) return;
+      const hasRemoteApi = Boolean(getApiOrigin());
+      const staticPagesNoApi = import.meta.env.VITE_GITHUB_PAGES === '1' && !hasRemoteApi;
+      if (staticPagesNoApi) {
+        setUser(null);
+        setApiReachable('unreachable');
+        setBusy(false);
+        return;
+      }
+      await refresh();
+    })();
+    return () => {
+      cancel = true;
+    };
   }, [refresh]);
 
   const login = useCallback(async (email: string, password: string) => {

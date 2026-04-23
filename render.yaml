@@ -1,28 +1,31 @@
-# Render “Blueprint” — deploy Postgres + API in one go.
-# Use the purple button in START_HERE.md (or: Render dashboard → New → Blueprint → this repo).
+# Render Blueprint: Postgres + Nutria API (Dockerfile in nutria-web-platform/)
+# https://dashboard.render.com → New → Blueprint → connect this repo.
 
 databases:
-  - name: nutria-db
+  - name: nutria-pg
     databaseName: nutria
     user: nutria
+    plan: free
 
 services:
   - type: web
     name: nutria-api
     runtime: docker
-    rootDir: nutria-web-platform
-    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    dockerfilePath: ./nutria-web-platform/Dockerfile
+    dockerContext: ./nutria-web-platform
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
         fromDatabase:
-          name: nutria-db
+          name: nutria-pg
           property: connectionString
       - key: SESSION_SECRET
         generateValue: true
-      - key: SESSION_SAMESITE
-        value: None
       - key: CORS_ORIGIN
         value: https://crispysaladmayo.github.io,http://localhost:5173,http://localhost:5174,http://127.0.0.1:5173,http://127.0.0.1:5174
+      - key: SESSION_SAMESITE
+        value: None
